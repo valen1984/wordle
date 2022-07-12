@@ -1,16 +1,66 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="reset.css">
-  <link rel="stylesheet" href="style.css">  
-  <script src="script.js"></script>
-<title>Final LPPA</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wordle</title>
+    <link rel="stylesheet" href="./reset.css">
+    <link rel="stylesheet" href="./styles.css">
+    <script src="./scripts.js"></script>
 </head>
 <body>
-<script src="script.js"></script>
-<footer></footer>
+    <header>
+    </header>
+    <main>
+        <form>
+            <fieldset id="fila0">
+                <input id="f0c0" type="text" minlength="1" maxlength="1" autocomplete="off" autofocus onkeyup="return tabular(this, this.maxLength)"/> <!-- onkeyup="if (this.value.length == this.getAttribute('maxlength')) txt.focus()" /> -->
+                <input id="f0c1" type="text" minlength="1" maxlength="1" autocomplete="off" onkeyup="return tabular(this, this.maxLength)"/>
+                <input id="f0c2" type="text" minlength="1" maxlength="1" autocomplete="off" onkeyup="return tabular(this, this.maxLength)"/>
+                <input id="f0c3" type="text" minlength="1" maxlength="1" autocomplete="off" onkeyup="return tabular(this, this.maxLength)"/>
+                <input id="f0c4" type="text" minlength="1" maxlength="1" autocomplete="off">
+            </fieldset>
+            <fieldset id="fila1">
+                <input id="f1c0" type="text" minlength="1" maxlength="1" autocomplete="off" onkeyup="return tabular(this, this.maxLength)"/>
+                <input id="f1c1" type="text" minlength="1" maxlength="1" autocomplete="off" onkeyup="return tabular(this, this.maxLength)"/>
+                <input id="f1c2" type="text" minlength="1" maxlength="1" autocomplete="off" onkeyup="return tabular(this, this.maxLength)"/>
+                <input id="f1c3" type="text" minlength="1" maxlength="1" autocomplete="off" onkeyup="return tabular(this, this.maxLength)"/>
+                <input id="f1c4" type="text" minlength="1" maxlength="1" autocomplete="off">
+            </fieldset>
+            <fieldset id="fila2">
+                <input id="f2c0" type="text" minlength="1" maxlength="1" autocomplete="off" onkeyup="return tabular(this, this.maxLength)"/>
+                <input id="f2c1" type="text" minlength="1" maxlength="1" autocomplete="off" onkeyup="return tabular(this, this.maxLength)"/>
+                <input id="f2c2" type="text" minlength="1" maxlength="1" autocomplete="off" onkeyup="return tabular(this, this.maxLength)"/>
+                <input id="f2c3" type="text" minlength="1" maxlength="1" autocomplete="off" onkeyup="return tabular(this, this.maxLength)"/>
+                <input id="f2c4" type="text" minlength="1" maxlength="1" autocomplete="off">
+            </fieldset>
+            <fieldset id="fila3">
+                <input id="f3c0" type="text" minlength="1" maxlength="1" autocomplete="off" onkeyup="return tabular(this, this.maxLength)"/>
+                <input id="f3c1" type="text" minlength="1" maxlength="1" autocomplete="off" onkeyup="return tabular(this, this.maxLength)"/>
+                <input id="f3c2" type="text" minlength="1" maxlength="1" autocomplete="off" onkeyup="return tabular(this, this.maxLength)"/>
+                <input id="f3c3" type="text" minlength="1" maxlength="1" autocomplete="off" onkeyup="return tabular(this, this.maxLength)"/>
+                <input id="f3c4" type="text" minlength="1" maxlength="1" autocomplete="off">
+            </fieldset>
+            <fieldset id="fila4">
+                <input id="f4c0" type="text" minlength="1" maxlength="1" autocomplete="off" onkeyup="return tabular(this, this.maxLength)"/>
+                <input id="f4c1" type="text" minlength="1" maxlength="1" autocomplete="off" onkeyup="return tabular(this, this.maxLength)"/>
+                <input id="f4c2" type="text" minlength="1" maxlength="1" autocomplete="off" onkeyup="return tabular(this, this.maxLength)"/>
+                <input id="f4c3" type="text" minlength="1" maxlength="1" autocomplete="off" onkeyup="return tabular(this, this.maxLength)"/>
+                <input id="f4c4" type="text" minlength="1" maxlength="1" autocomplete="off">
+            </fieldset>
+            <fieldset id="fila5">
+                <input id="f5c0" type="text" minlength="1" maxlength="1" autocomplete="off" onkeyup="return tabular(this, this.maxLength)"/>
+                <input id="f5c1" type="text" minlength="1" maxlength="1" autocomplete="off" onkeyup="return tabular(this, this.maxLength)"/>
+                <input id="f5c2" type="text" minlength="1" maxlength="1" autocomplete="off" onkeyup="return tabular(this, this.maxLength)"/>
+                <input id="f5c3" type="text" minlength="1" maxlength="1" autocomplete="off" onkeyup="return tabular(this, this.maxLength)"/>
+                <input id="f5c4" type="text" minlength="1" maxlength="1" autocomplete="off">
+            </fieldset>
+        </form>
+    </main>
+    <aside>
+    </aside>
+    <footer>
+    </footer>
 </body>
 </html>
