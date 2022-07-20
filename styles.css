@@ -1,0 +1,104 @@
+* {
+    font-family: Arial, Helvetica, sans-serif;
+    color: rgb(34, 34, 34);
+    background-color: #181818;
+}
+
+header {
+    height: auto;
+    min-height: 130px;
+    padding-top: 20px;
+    font-size: 50px;
+    color: rgb(231, 222, 222);
+}
+
+.header {
+    color: white;
+    text-align: center;
+    padding-bottom: 20px;
+}
+
+.button-nav {
+    background-color: #f1f1f1;
+    border-radius: 4px;
+    font-weight: bold;
+    padding: 5px;
+    margin: 5px;
+    cursor: pointer;
+}
+
+.button-nav :link {
+    background-color: #f1f1f1;
+    text-decoration: none;
+}
+
+.button-nav :visited {
+    text-decoration: none;
+    background-color: #f1f1f1;
+}
+
+.button-nav:hover {
+    text-decoration: none;
+    color: rgb(160, 29, 29);
+}
+
+.button-nav :visited:hover {
+    background-color: #f1f1f1;
+    text-decoration: none;
+    color: rgb(160, 29, 29);
+}
+
+#buttons {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+main {
+    display: flex;
+    justify-content: center;
+}
+
+
+
+fieldset  {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    background-color: DodgerBlue;
+}
+
+input {
+    background-color: #f1f1f1;
+    width: 75px;
+    margin: 5px;
+    text-align: center;
+    line-height: 75px;
+    font-size: 40px;
+    border: 2px solid rgba(0, 0, 0, 0.377);
+    border-radius: 10px;
+    box-shadow: 2px 2px 10px;
+    text-shadow: 0 0 0 gray;
+    text-transform: uppercase;
+    caret-color: transparent;
+
+}
+
+input:focus{
+    outline: none;
+    border: 2px solid rgba(0, 0, 0, 0.750);
+    box-shadow: 0px 0px 0px;
+
+}
+
+.verde {
+    background-color: rgb(6, 172, 6);
+}
+
+.amarillo {
+    background-color: rgb(182, 182, 54);
+}
+
+.gris {
+    background-color: rgb(170, 167, 167);
+}
