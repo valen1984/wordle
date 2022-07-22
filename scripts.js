@@ -120,9 +120,9 @@ function inicio () {
                 var respuestaUsuarioString = respuestaUsuario.join('');
 
                 if (respuestaUsuarioString == palabraGanadora){
-                    alert("Ganaste");
-                    timer(false);
-                    
+                    alert("Crack, ganaste!"); // Resultado cuando adivinas la palabra ganadora
+                    timer(false); //arranca la funcion timer
+                    document.getElementById("nueva-partida").style.visibility="visible"; //Se habilita nueva partida despues que ganas
                 }
 
                 if (indice == 0 && respuestaUsuarioString != palabraGanadora){
@@ -186,19 +186,6 @@ function revisarResultado(respuesta, indice){
         }        
     })
     var status = pintarTablero();
-    pantallaresultado(status);
-}
-
-function pantallaresultado(status) {
-    if (status == "resuelto"){
-        console.log(status)
-        alert("Sos crack; ganaste!");
-        //window.location.reload(true);   
-    }
-    else {
-    console.log(status);
-    }
-
 }
 
 
