@@ -1,3 +1,5 @@
+let isGameOver = false
+
 function user() {
     let player = {
       // if we're reading the full name at once we should get rid of redundancy
@@ -13,24 +15,30 @@ function user() {
     } else {
         // Alert is definitely a better choice here as the player doesn't input any information
         alert("Perfecto, vamos a jugar " + player.name + "!");
-        inicio (); timer(); hideBtn();
+        inicio (); timer(true); hideBtn();
     }
 }
 
 function hideBtn() {
     document.getElementById("nueva-partida").style.visibility="hidden";
     document.getElementById("timer").style.visibility="visible";
+    document.getElementById("grilla").style.visibility="visible";
     }
     
-   function timer() {
-    var fiveMinutes = 60 * 5,
+   function timer(startStop) {
+    if (startStop){
+        var fiveMinutes = 60 * 5,
         display = document.querySelector('#time');
-    startTimer(fiveMinutes, display);
+        startTimer(fiveMinutes, display);
+        }
+        else {
+            clearInterval(window.reloj);
+        }
    }
 
    function startTimer(duration, display) {
     var timer = duration, minutes, seconds;
-    setInterval(function () {
+    window.reloj = setInterval(function () {
         minutes = parseInt(timer / 60, 10)
         seconds = parseInt(timer % 60, 10);
 
@@ -39,9 +47,11 @@ function hideBtn() {
 
         display.textContent = minutes + ":" + seconds;
 
-        if (--timer < 0) {
-            timer = duration;
-        }
+            if (--timer < 0) {
+                timer = duration;
+                alert("Game Over; intentalo nuevamente");
+                window.location.reload(true);
+            }
     }, 1000);
 }
 
@@ -104,7 +114,37 @@ function inicio () {
         fieldset.onkeydown = function (event){
             if(event.key === `Enter`){
                 //console.log('indice',indice)
-                guardarRespuesta(indice)
+                guardarRespuesta(indice);
+                
+                var respuestaUsuario = respuestas[indice];
+                var respuestaUsuarioString = respuestaUsuario.join('');
+
+                if (respuestaUsuarioString == palabraGanadora){
+                    alert("Ganaste");
+                    timer(false);
+                    
+                }
+
+                if (indice == 0 && respuestaUsuarioString != palabraGanadora){
+                    document.getElementById(`fila1`).disabled=false;
+                }
+                if (indice == 1 && respuestaUsuarioString != palabraGanadora){
+                    document.getElementById(`fila2`).disabled=false;
+                }
+                if (indice == 2 && respuestaUsuarioString != palabraGanadora){
+                    document.getElementById(`fila3`).disabled=false;
+                }
+                if (indice == 3 && respuestaUsuarioString != palabraGanadora){
+                    document.getElementById(`fila4`).disabled=false;
+                }
+                if (indice == 4 && respuestaUsuarioString != palabraGanadora){
+                    document.getElementById(`fila5`).disabled=false;
+                }
+                if (indice == 5  && respuestaUsuarioString != palabraGanadora){
+                    alert(`Game OVER! la palabra es: "${palabraGanadora}"`);
+                    location.reload();
+                }
+            
             }
         }
     }
@@ -121,9 +161,9 @@ function guardarRespuesta(indice){
     console.log(respuestas[indice])
 }
 
-// Funcion para generar palabras randon
+// Funcion para generar palabras random
 
-const palabrasDisponibles = ['mates', 'pasto','toser']
+const palabrasDisponibles = ['mates']
 
 function elegirPalabraAlAzar(palabrasDisponibles) {
     return palabrasDisponibles[Math.floor(Math.random() * palabrasDisponibles.length)]
@@ -132,8 +172,6 @@ function elegirPalabraAlAzar(palabrasDisponibles) {
 var palabraGanadora = elegirPalabraAlAzar(palabrasDisponibles)
 
 var arrayPalabraGanadora = palabraGanadora.split("")
-
-
 
 function revisarResultado(respuesta, indice){
     respuesta.forEach(function(elemento, index){
@@ -145,10 +183,25 @@ function revisarResultado(respuesta, indice){
         }
         else if(!arrayPalabraGanadora.includes(elemento)){
             colorTablero[indice][index] = colores.GRIS;
-        }
+        }        
     })
-    pintarTablero();
+    var status = pintarTablero();
+    pantallaresultado(status);
 }
+
+function pantallaresultado(status) {
+    if (status == "resuelto"){
+        console.log(status)
+        alert("Sos crack; ganaste!");
+        //window.location.reload(true);   
+    }
+    else {
+    console.log(status);
+    }
+
+}
+
+
 
 
 // salto de input
@@ -169,11 +222,11 @@ function tabular(obj, tam) {
 
     }
     }
+    
 
 
 window.onload = function(){
     //console.log(palabraGanadora.split(""))
-    inicio();
-    pintarTablero();
     document.getElementById("timer").style.visibility="hidden";
+    document.getElementById("grilla").style.visibility="hidden";
     }
