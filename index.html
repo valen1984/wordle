@@ -14,10 +14,12 @@
             <div class="header">EXAMEN FINAL LPPA</div>
             <div class="header">WORDLE</div>
             <div id="buttons">
+                <button id="reset" onclick="user()"; class="button-nav">Jugar de Nuevo</button>
                 <button id="nueva-partida" onclick="user()"; class="button-nav">Nueva Partida</button>
                 <button id="cargar-partida" class="button-nav">Cargar Partida</button>
                 <button id="guardar-partida" class="button-nav">Guardar Partida</button>
-                <button id="contactanos" class="button-nav"><a href="./HTML/contacto.html">Contactanos</a></button>
+                <button id="contactanos" class="button-nav"><a href="contacto.html">Contactanos</a></button>
+                <button id="tablero" onclick="mostrarModal()"; class="button-nav">Scoreboard</button>
             </div>
             <div id="timer">
                 Tenés <span id="time">05:00</span> minutos para resolver la palabra!
@@ -68,6 +70,29 @@
                 <input id="f5c4" type="text" minlength="1" maxlength="1" autocomplete="off">
             </fieldset>
         </form>
+        <!-- Modal -->
+        <div id="modalPartidas" class="modal">
+            <div class="modal_content">
+                <p class="modal_message">PARTIDAS</p>
+                <div id="table-wrapper">
+                    <div id="table-scroll">
+                        <table id="tabla" border="1">
+                            <thead>
+                                <tr>
+                                    <th>NOMBRE</th>
+                                    <th>Fecha</th>
+                                    <th>Puntaje</th>
+                                    <th>Tiempo</th>
+                                </tr>
+                            </thead>
+            
+                            <tbody id="puntajes">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <p class="modal_close" id="close">CERRAR</p>
+            </div>
 </div>
     </main>
     <aside>

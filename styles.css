@@ -113,3 +113,90 @@ input:focus{
 .gris {
     background-color: rgb(170, 167, 167);
 }
+
+#table-wrapper {
+    position: relative;
+}
+
+#table-scroll {
+    height: 400px;
+    overflow: auto;
+    margin-top: 20px;
+}
+
+#table-wrapper table {
+    width: 100%;
+}
+
+#table-wrapper table thead th .text {
+    position: absolute;
+    top: -20px;
+    z-index: 2;
+    height: 20px;
+    width: 35%;
+}
+
+/*================== Modal ==================*/
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    overflow: auto;
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal_content {
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    text-align: center;
+    background-color: #121213;
+    border: 2px solid #3a3a3c;
+    margin: 15% auto;
+}
+
+.modal_message {
+    width: 400px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 2px solid #3a3a3c;
+    color: #fff;
+    font-size: 18px;
+}
+
+.modal_close {
+    width: 30%;
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    margin: 25px;
+    padding: 1.3em 3em;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #bbb7b7;
+    border: 2px solid #3a3a3c;
+    border-radius: 4px;
+    transition: all 0.3s ease 0s;
+    cursor: pointer;
+    outline: none;
+}
+
+.modal_close:hover {
+    color: #000;
+    background-color: #3a3a3c;
+    border: 3px solid #121213;
+}
+.modal_close:active {
+    background-color: #bbb7b7;
+    border: 3px solid #121213;
+}

@@ -1,4 +1,6 @@
 let isGameOver = false
+window.fila = 0
+
 
 function user() {
     let player = {
@@ -7,14 +9,17 @@ function user() {
     }
 
     // here we assign the result of the prompt to name attribute of player object
-    player.name = prompt("Ingresá tu nombre para jugar:");
+    player.name = prompt("Ingresá tu nombre para jugar:"); // Lo voy a usar para guardar el nombre en el tablero
     // honestly I don't know what empty prompt returns so I would fall back to rejecting all falsey values
+    //localStorage.setItem('nombre', player.name);
+    //obtenerSaves(player.value);
     if (!player.name) {
         alert("El juego fue cancelado");
         return;
     } else {
         // Alert is definitely a better choice here as the player doesn't input any information
         alert("Perfecto, vamos a jugar " + player.name + "!");
+        localStorage.setItem('nombre', player.name, JSON.stringify(puntajes));
         inicio (); timer(true); hideBtn();
     }
 }
@@ -122,9 +127,10 @@ function inicio () {
                 if (respuestaUsuarioString == palabraGanadora){
                     alert("Crack, ganaste!"); // Resultado cuando adivinas la palabra ganadora
                     timer(false); //arranca la funcion timer
-                    document.getElementById("nueva-partida").style.visibility="visible"; //Se habilita nueva partida despues que ganas
+                    scorePartidaGanada(indice); // Guardamos los datos de la partida con el score
+                    document.getElementById("reset").style.visibility="visibility";
                 }
-
+                 
                 if (indice == 0 && respuestaUsuarioString != palabraGanadora){
                     document.getElementById(`fila1`).disabled=false;
                 }
@@ -187,10 +193,6 @@ function revisarResultado(respuesta, indice){
     })
     var status = pintarTablero();
 }
-
-
-
-
 // salto de input
 
 function tabular(obj, tam) {
@@ -209,11 +211,96 @@ function tabular(obj, tam) {
 
     }
     }
-    
 
+    function scorePartidaGanada(fila){
+        let puntaje = {};
+    
+        puntaje.fecha = new Date().toLocaleString('en-GB', { timeZone:'America/Argentina/Buenos_Aires'});
+        puntaje.nombre = localStorage.getItem('nombre');
+    
+        //calcular puntaje
+        switch (fila) {
+    
+            case 0:
+                puntaje.puntaje = 100
+                break;
+    
+            case 1:
+                puntaje.puntaje = 80
+                break;
+
+            case 2:
+                puntaje.puntaje = 60
+                break;
+    
+            case 3:
+                puntaje.puntaje = 40
+                break;
+    
+            case 4:
+                puntaje.puntaje = 20
+                break;
+    
+            case 5:
+                puntaje.puntaje = 10
+                break;
+    
+            default:
+                break;
+        }
+    
+        //Traigo del localStorage el array "puntajes", si no esta le asigno "[]"
+        let puntajesArray = JSON.parse(localStorage.getItem('puntajes')) || [];
+        puntajesArray.push(puntaje);
+        //Convierto mi array de puntajes a json
+        let puntajeArrayJSON = JSON.stringify(puntajesArray);
+        //Guardo mi array de puntajes en formato JSON en el local storage
+        localStorage.setItem("puntajes", puntajeArrayJSON)
+    
+    }
+
+    function obtenerPuntajes() {
+
+        //Traigo del localStorage el array "puntajes", si no esta le asigno "[]"
+        let puntajesArray = JSON.parse(localStorage.getItem('puntajes')) || [];
+    
+        //Muestro la lista de puntajes ordenado por fecha de mas nueva a mas antigua
+        let body = '';
+        for (var i = 0; i < puntajesArray.length; i++) {
+                body += `<tr role="row">
+                            <td data-label="NOMBRE">${(puntajesArray[puntajesArray.length-1-i].nombre)}</td>
+                            <td data-label="FECHA">${(puntajesArray[puntajesArray.length-1-i].fecha)}</td>
+                            <td data-label="PUNTAJE">${(puntajesArray[puntajesArray.length-1-i].puntaje)}</td>
+                        </tr>`
+            }
+        document.getElementById('puntajes').innerHTML = body;
+    }
+        
+    function mostrarModal() {
+        // Ejecuto modal -----------------------------------------------------------
+        let modal = document.getElementById("modalPartidas");
+        let span = document.getElementById("close");
+    
+        // Lo hago visible
+        modal.style.display = "block";
+    
+        // Si clickea el "botón" de aceptar escondo el modal
+        span.onclick = function () {
+            modal.style.display = "none";
+        }
+    
+        // Si clickea fuera del modal, lo escondo
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    }
 
 window.onload = function(){
     //console.log(palabraGanadora.split(""))
     document.getElementById("timer").style.visibility="hidden";
     document.getElementById("grilla").style.visibility="hidden";
+    document.getElementById("reset").style.visibility="none";
+    obtenerPuntajes();
     }
