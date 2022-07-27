@@ -215,9 +215,11 @@ function revisarResultado(respuesta, indice){
 }
 // salto de input
 
-function tabular(obj, tam) {
+function tabular(e) {
+    let obj = e.target
     let frm = obj.form;
     let largo = obj.value.length;
+    let tam = obj.maxLength;
         if (largo == tam) {
             for(i=0;i<frm.elements.length;i++) {
                 if(frm.elements[i]==obj) {
@@ -225,12 +227,10 @@ function tabular(obj, tam) {
             break;
         }
     }
-
     frm.elements[i+1].focus();
     return false;
-
     }
-    }
+}
 
     function scorePartidaGanada(fila){
         let puntajeTimer = document.querySelector('#time').innerHTML; //Traigo la fecha capturada para multiplicar por puntaje
