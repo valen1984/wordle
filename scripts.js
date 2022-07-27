@@ -24,19 +24,21 @@
 }
 */
 
-function hideBtn() {
+// Movi la funcion al window.onload
+/*function hideBtn() {
     document.getElementById("nueva-partida").style.visibility="hidden";
     document.getElementById("timer").style.visibility="visible";
     document.getElementById("grilla").style.visibility="visible";
     }
+*/
 
-    function showBtn() {
-        document.getElementById("volver-a-jugar-partida").style.display="inline-block";
-        document.getElementById("guardar-partida").style.display="none";
-        document.getElementById("mensaje-resultado").style.display="inline-block";
-        document.getElementById("time").style.display="none";
-        document.getElementById("timer").style.display="none";
-    }
+function showBtn() {
+    document.getElementById("volver-a-jugar-partida").style.display="inline-block";
+    document.getElementById("guardar-partida").style.display="none";
+    document.getElementById("mensaje-resultado").style.display="inline-block";
+    document.getElementById("time").style.display="none";
+    document.getElementById("timer").style.display="none";
+}
     
    function timer(startStop) {
     if (startStop){
@@ -69,28 +71,6 @@ function hideBtn() {
             }
     }, 1000);
 }
-
-nuevaPartida.addEventListener("click", function(){
-    document.getElementById("nombre-jugador").style.display="flex";
-    document.getElementById("nombre-jugador-input").focus();
-})
-
-volverAJugar.addEventListener("click", function(){
-    estadoGanador = false;
-    estadoPerdedor = false;
-    location.reload();
-})
-
-
-gurdarPartida.addEventListener("click", function(){
-    saveProgress();
-})
-
-rankingPartida.addEventListener("click", function(){
-    obtenerPuntajes();
-    mostrarModal();
-})
-
     // Nueva partida, esconder botones
     function hideBtn() {
         document.getElementById("nueva-partida").style.display="none";
@@ -100,6 +80,11 @@ rankingPartida.addEventListener("click", function(){
         document.getElementById("time").style.display="inline";
         }
 
+    function mensajeDeErrorValor() {
+        errorCampoValor = document.getElementById("mensaje-error");
+        errorCampoValor.innerHTML = "Introduzca solo letras mayusculas";
+        errorCampoValor.style.visibility = "visible";
+    }
 //matriz colores del tablero
 
 var colorTablero = [
@@ -164,10 +149,12 @@ function inicio () {
                 var respuestaUsuarioString = respuestaUsuario.join('');
 
                 if (respuestaUsuarioString == palabraGanadora){
-                    alert("Crack, ganaste!"); // Resultado cuando adivinas la palabra ganadora
+                    estadoGanador = true;
+                    //alert("Crack, ganaste!"); // Resultado cuando adivinas la palabra ganadora
+                    showBtn();
                     timer(false); //arranca la funcion timer
                     scorePartidaGanada(indice); // Guardamos los datos de la partida con el score
-                    document.getElementById("reset").style.visibility="visibility";
+                    //document.getElementById("reset").style.visibility="visibility";
                     document.getElementById("mensaje-resultado").style.color = "rgb(21, 211, 21)";
                     document.getElementById("mensaje-resultado").innerHTML = "--- GANASTE!! --- ";
                 }
@@ -188,8 +175,11 @@ function inicio () {
                     document.getElementById(`fila5`).disabled=false;
                 }
                 if (indice == 5  && respuestaUsuarioString != palabraGanadora){
-                    alert(`Game OVER! la palabra es: "${palabraGanadora}"`);
-                    location.reload();
+                    // Testeo con Alerts
+                    //alert(`Game OVER! la palabra es: "${palabraGanadora}"`);
+                    //location.reload();
+                    showBtn();
+                    document.getElementById("mensaje-resultado").innerHTML = `Game OVER! No quedan mas intentos. La palabra es: "${palabraGanadora}"`;
                 }
             
             }
@@ -371,7 +361,7 @@ function GuardarProgreso(){
 
     window.onload = function(){
 
-        let inputsForm = document.getElementById("form-wordle").querySelectorAll("input");
+        let inputsForm = document.getElementById("grilla").querySelectorAll("input");
     
         inputsForm.forEach(function (x){
             x.addEventListener("keyup", tabular);
@@ -455,7 +445,10 @@ function GuardarProgreso(){
             display = document.querySelector("#time");
             startTimer(fiveMinutes, display);
         }
-    
+        
+        var estadoGanador = false;
+        var estadoPerdedor = false;
+
         function startTimer(duration, display) {
             var timer = duration, minutes, seconds;
             var reloj = setInterval(function () {
