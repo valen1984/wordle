@@ -1,0 +1,43 @@
+#formulario-contacto {
+    display: flex;
+    flex-wrap: nowrap;
+    width: 90%;
+    max-width: 400px;
+    flex-direction: column;
+    color: white;
+}
+
+.fieldset-contacto {
+    display: inherit;
+    flex-direction: column;
+    color: white;
+}
+
+label, textarea, input {
+    margin: 3px;
+    padding: 5px;
+    color: #f1f1f1;
+    font-size: 14px;
+}
+
+label {
+    font-size: 20px;
+}
+
+input, textarea {
+    background-color: #353434;
+}
+
+#submit {
+    background-color: rgb(21, 211, 21);;
+    color: #181818;
+    font-weight: bold;
+    cursor: pointer;
+    border: 0px;
+}
+
+.errores-formulario-contacto {
+    visibility: hidden;
+    margin: 7px;
+    color: rgb(226, 38, 38);
+}
