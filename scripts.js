@@ -59,7 +59,27 @@ function hideBtn() {
             }
     }, 1000);
 }
+// Guardar Progreso de Partida
+function GuardarProgreso(){
 
+    //Declaro un array "save" y le guardo los datos necesarios para poder continuar jugando en otro momento
+    let save = {};
+
+    save.fecha = new Date().toLocaleString('es-AR', {timeZone:'America/Argentina/Buenos_Aires'});
+    save.tiempo = document.querySelector('#time').innerHTML;
+    save.respuestas = respuestas;
+    save.usuario = document.getElementById("nombre-jugador-input").value;
+    save.palabraGanadora = palabraGanadora;
+
+    //Traigo del localStorage el array "saves", si no esta le asigno "[]"
+    let savesArray = JSON.parse(localStorage.getItem('saves')) || [];
+    savesArray.push(save);
+    //Convierto mi array de saves a json
+    let savesArrayJSON = JSON.stringify(savesArray);
+    //Guardo mi array de saves en formato JSON en el local storage
+    localStorage.setItem("saves", savesArrayJSON);
+    window.location.href = "../index.html";
+}
 
 //matriz colores del tablero
 
@@ -213,36 +233,46 @@ function tabular(obj, tam) {
     }
 
     function scorePartidaGanada(fila){
+        let puntajeTimer = document.querySelector('#time').innerHTML; //Traigo la fecha capturada para multiplicar por puntaje
+        let puntuacionTimer = puntajeTimer.replace(":", ""); //Elimino simbolo :
+        let puntuacionTimerNumber = Number(puntuacionTimer) //Paso string a number
+
         let puntaje = {};
     
         puntaje.fecha = new Date().toLocaleString('en-GB', { timeZone:'America/Argentina/Buenos_Aires'});
-        puntaje.nombre = localStorage.getItem('nombre');
+        puntaje.nombre = document.getElementById("nombre-jugador-input").value;
     
         //calcular puntaje
         switch (fila) {
     
             case 0:
-                puntaje.puntaje = 100
+                calculoPuntaje0 = 2 * puntuacionTimerNumber
+                puntaje.puntaje = Math.round(calculoPuntaje0) //Redondeamos puntaje
                 break;
     
             case 1:
-                puntaje.puntaje = 80
+                calculoPuntaje1 = 1.5 * puntuacionTimerNumber
+                puntaje.puntaje = Math.round(calculoPuntaje1)
                 break;
-
+    
             case 2:
-                puntaje.puntaje = 60
+                calculoPuntaje2 = 1.2 * puntuacionTimerNumber
+                puntaje.puntaje = Math.round(calculoPuntaje2)
                 break;
     
             case 3:
-                puntaje.puntaje = 40
+                calculoPuntaje3 = 1 * puntuacionTimerNumber
+                puntaje.puntaje = Math.round(calculoPuntaje3)
                 break;
     
             case 4:
-                puntaje.puntaje = 20
+                calculoPuntaje4 = 0.8 * puntuacionTimerNumber
+                puntaje.puntaje = Math.round(calculoPuntaje4)
                 break;
     
             case 5:
-                puntaje.puntaje = 10
+                calculoPuntaje5 = 0.5 * puntuacionTimerNumber
+                puntaje.puntaje = Math.round(calculoPuntaje5)
                 break;
     
             default:
