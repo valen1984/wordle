@@ -1,10 +1,9 @@
-let isGameOver = false
-window.fila = 0
+//window.fila = 0
 
-
-function user() {
+// Testeo funcionalidad estableciendo una variable para el nombre en un alert y guardo en LS una key 'nombre'. 
+// Ejecuto el juego, timer y escondo el boton de nueva partida.
+/* function user() {
     let player = {
-      // if we're reading the full name at once we should get rid of redundancy
       name: null
     }
 
@@ -23,11 +22,20 @@ function user() {
         inicio (); timer(true); hideBtn();
     }
 }
+*/
 
 function hideBtn() {
     document.getElementById("nueva-partida").style.visibility="hidden";
     document.getElementById("timer").style.visibility="visible";
     document.getElementById("grilla").style.visibility="visible";
+    }
+
+    function showBtn() {
+        document.getElementById("volver-a-jugar-partida").style.display="inline-block";
+        document.getElementById("guardar-partida").style.display="none";
+        document.getElementById("mensaje-resultado").style.display="inline-block";
+        document.getElementById("time").style.display="none";
+        document.getElementById("timer").style.display="none";
     }
     
    function timer(startStop) {
@@ -54,32 +62,43 @@ function hideBtn() {
 
             if (--timer < 0) {
                 timer = duration;
-                alert("Game Over; intentalo nuevamente");
-                window.location.reload(true);
+                // Testeo de timer 
+                // alert("Game Over; intentalo nuevamente");
+                document.getElementById("mensaje-resultado").innerHTML = `Game OVER! Tiempo finalizado. La palabra es: ${palabraGanadora}`;
+                //window.location.reload(true);
             }
     }, 1000);
 }
-// Guardar Progreso de Partida
-function GuardarProgreso(){
 
-    //Declaro un array "save" y le guardo los datos necesarios para poder continuar jugando en otro momento
-    let save = {};
+nuevaPartida.addEventListener("click", function(){
+    document.getElementById("nombre-jugador").style.display="flex";
+    document.getElementById("nombre-jugador-input").focus();
+})
 
-    save.fecha = new Date().toLocaleString('es-AR', {timeZone:'America/Argentina/Buenos_Aires'});
-    save.tiempo = document.querySelector('#time').innerHTML;
-    save.respuestas = respuestas;
-    save.usuario = document.getElementById("nombre-jugador-input").value;
-    save.palabraGanadora = palabraGanadora;
+volverAJugar.addEventListener("click", function(){
+    estadoGanador = false;
+    estadoPerdedor = false;
+    location.reload();
+})
 
-    //Traigo del localStorage el array "saves", si no esta le asigno "[]"
-    let savesArray = JSON.parse(localStorage.getItem('saves')) || [];
-    savesArray.push(save);
-    //Convierto mi array de saves a json
-    let savesArrayJSON = JSON.stringify(savesArray);
-    //Guardo mi array de saves en formato JSON en el local storage
-    localStorage.setItem("saves", savesArrayJSON);
-    window.location.href = "../index.html";
-}
+
+gurdarPartida.addEventListener("click", function(){
+    saveProgress();
+})
+
+rankingPartida.addEventListener("click", function(){
+    obtenerPuntajes();
+    mostrarModal();
+})
+
+    // Nueva partida, esconder botones
+    function hideBtn() {
+        document.getElementById("nueva-partida").style.display="none";
+        document.getElementById("cargar-partida").style.display="none";
+        document.getElementById("guardar-partida").style.display="inline-block";
+        document.getElementById("timer").style.display="block";
+        document.getElementById("time").style.display="inline";
+        }
 
 //matriz colores del tablero
 
@@ -149,6 +168,8 @@ function inicio () {
                     timer(false); //arranca la funcion timer
                     scorePartidaGanada(indice); // Guardamos los datos de la partida con el score
                     document.getElementById("reset").style.visibility="visibility";
+                    document.getElementById("mensaje-resultado").style.color = "rgb(21, 211, 21)";
+                    document.getElementById("mensaje-resultado").innerHTML = "--- GANASTE!! --- ";
                 }
                  
                 if (indice == 0 && respuestaUsuarioString != palabraGanadora){
@@ -231,48 +252,69 @@ function tabular(e) {
     return false;
     }
 }
+// Guardar Progreso de Partida
+function GuardarProgreso(){
+
+    //Declaro un array "save" y le guardo los datos necesarios para poder continuar jugando en otro momento
+    let save = {};
+
+    save.fecha = new Date().toLocaleString('es-AR', {timeZone:'America/Argentina/Buenos_Aires'});
+    save.tiempo = document.querySelector('#time').innerHTML;
+    save.respuestas = respuestas;
+    save.usuario = document.getElementById("nombre-jugador-input").value;
+    save.palabraGanadora = palabraGanadora;
+
+    //Traigo del localStorage el array "saves", si no esta le asigno "[]"
+    let savesArray = JSON.parse(localStorage.getItem('saves')) || [];
+    savesArray.push(save);
+    //Convierto mi array de saves a json
+    let savesArrayJSON = JSON.stringify(savesArray);
+    //Guardo mi array de saves en formato JSON en el local storage
+    localStorage.setItem("saves", savesArrayJSON);
+    window.location.href = "/index.html";
+}
 
     function scorePartidaGanada(fila){
         let puntajeTimer = document.querySelector('#time').innerHTML; //Traigo la fecha capturada para multiplicar por puntaje
         let puntuacionTimer = puntajeTimer.replace(":", ""); //Elimino simbolo :
         let puntuacionTimerNumber = Number(puntuacionTimer) //Paso string a number
 
-        let puntaje = {};
+        let score = {};
     
-        puntaje.fecha = new Date().toLocaleString('en-GB', { timeZone:'America/Argentina/Buenos_Aires'});
-        puntaje.nombre = document.getElementById("nombre-jugador-input").value;
+        score.fecha = new Date().toLocaleString('en-GB', { timeZone:'America/Argentina/Buenos_Aires'});
+        score.nombre = document.getElementById("nombre-jugador-input").value;
     
         //calcular puntaje
         switch (fila) {
     
             case 0:
                 calculoPuntaje0 = 2 * puntuacionTimerNumber
-                puntaje.puntaje = Math.round(calculoPuntaje0) //Redondeamos puntaje
+                score.puntaje = Math.round(calculoPuntaje0) //Redondeamos puntaje
                 break;
     
             case 1:
                 calculoPuntaje1 = 1.5 * puntuacionTimerNumber
-                puntaje.puntaje = Math.round(calculoPuntaje1)
+                score.puntaje = Math.round(calculoPuntaje1)
                 break;
     
             case 2:
                 calculoPuntaje2 = 1.2 * puntuacionTimerNumber
-                puntaje.puntaje = Math.round(calculoPuntaje2)
+                score.puntaje = Math.round(calculoPuntaje2)
                 break;
     
             case 3:
                 calculoPuntaje3 = 1 * puntuacionTimerNumber
-                puntaje.puntaje = Math.round(calculoPuntaje3)
+                score.puntaje = Math.round(calculoPuntaje3)
                 break;
     
             case 4:
                 calculoPuntaje4 = 0.8 * puntuacionTimerNumber
-                puntaje.puntaje = Math.round(calculoPuntaje4)
+                score.puntaje = Math.round(calculoPuntaje4)
                 break;
     
             case 5:
                 calculoPuntaje5 = 0.5 * puntuacionTimerNumber
-                puntaje.puntaje = Math.round(calculoPuntaje5)
+                score.puntaje = Math.round(calculoPuntaje5)
                 break;
     
             default:
@@ -300,7 +342,7 @@ function tabular(e) {
                 body += `<tr role="row">
                             <td data-label="NOMBRE">${(puntajesArray[puntajesArray.length-1-i].nombre)}</td>
                             <td data-label="FECHA">${(puntajesArray[puntajesArray.length-1-i].fecha)}</td>
-                            <td data-label="PUNTAJE">${(puntajesArray[puntajesArray.length-1-i].puntaje)}</td>
+                            <td data-label="PUNTAJE">${(puntajesArray[puntajesArray.length-1-i].score)}</td>
                         </tr>`
             }
         document.getElementById('puntajes').innerHTML = body;
@@ -327,15 +369,145 @@ function tabular(e) {
         }
     }
 
-window.onload = function(){
-    document.getElementById("timer").style.visibility="hidden";
-    document.getElementById("grilla").style.visibility="hidden";
-    document.getElementById("reset").style.visibility="none";
-    obtenerPuntajes();
+    window.onload = function(){
 
-    let inputsForm = document.getElementById("grilla").querySelectorAll("input");
-
-    inputsForm.forEach(function (x){
-        x.addEventListener("keyup", tabular);
-    })
+        let inputsForm = document.getElementById("form-wordle").querySelectorAll("input");
+    
+        inputsForm.forEach(function (x){
+            x.addEventListener("keyup", tabular);
+        })
+    
+        //Funcion para ingresar nombre
+    
+        const nuevaPartida = document.getElementById("nueva-partida");
+        const volverAJugar = document.getElementById("volver-a-jugar-partida");
+        const gurdarPartida = document.getElementById("guardar-partida");
+        const rankingPartida = document.getElementById("ranking-partida");
+    
+        const form = document.getElementById("formulario-usuario");
+        const name = document.getElementById("nombre-jugador-input");
+    
+        const ordenFecha = document.getElementById("orden-por-fecha");
+        const ordenPuntaje = document.getElementById("orden-por-puntaje");
+    
+        form.addEventListener("submit", function(e){
+            e.preventDefault();
+    
+            var regexName = new RegExp ("^[A-Za-z]+$");
+            let nameValue = name.value;
+            let regexValue = regexName.test(nameValue);
+    
+            if (name.value.length < 3 || regexValue == false || name.value == "") {
+                errorNombre.innerHTML = "Ingrese un nombre mayor a 2 digitos. Solo letras sin espacios."
+                return false; //se utiliza para abortar la funcion
+            } else {
+             document.getElementById("nombre-jugador").style.display="none";
+                estadoGanador = false;
+                inicio();
+                pintarTablero();
+                timer();
+                hideBtn();
+                document.getElementById("fila0").disabled=false;
+                document.getElementById("f0c0").focus();
+                mensajeDeErrorValor();
+            }
+        })
+    
+        nuevaPartida.addEventListener("click", function(){
+            document.getElementById("nombre-jugador").style.display="flex";
+            document.getElementById("nombre-jugador-input").focus();
+        })
+    
+        volverAJugar.addEventListener("click", function(){
+            estadoGanador = false;
+            estadoPerdedor = false;
+            location.reload();
+        })
+    
+        gurdarPartida.addEventListener("click", function(){
+            saveProgress();
+        })
+    
+        rankingPartida.addEventListener("click", function(){
+            obtenerPuntajes();
+            mostrarModal();
+        })
+    
+        ordenFecha.addEventListener("click", function(){
+            obtenerPuntajes()
+        })
+    
+        ordenPuntaje.addEventListener("click", function(){
+            ordenalTablaPuntaje()
+        })
+    
+        // Nueva partida, esconder botones
+        function hideBtn() {
+            document.getElementById("nueva-partida").style.display="none";
+            document.getElementById("cargar-partida").style.display="none";
+            document.getElementById("guardar-partida").style.display="inline-block";
+            document.getElementById("timer").style.display="block";
+            document.getElementById("time").style.display="inline";
+            }
+    
+        function timer() {
+            var fiveMinutes = 60 * 5,
+            display = document.querySelector("#time");
+            startTimer(fiveMinutes, display);
+        }
+    
+        function startTimer(duration, display) {
+            var timer = duration, minutes, seconds;
+            var reloj = setInterval(function () {
+                minutes = parseInt(timer / 60, 10);
+                seconds = parseInt(timer % 60, 10);
+    
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0" + seconds : seconds;
+    
+                display.textContent = minutes + ":" + seconds;
+    
+                if (estadoGanador || estadoPerdedor){
+                    clearInterval(reloj);
+                }
+    
+                if (timer < 60 * 3){
+                    document.getElementById("time").style.color="rgb(226, 226, 85)";
+                }
+    
+                if (timer < 60){
+                    document.getElementById("time").style.color="rgb(226, 38, 38)";
+                }
+    
+                if (--timer < 0) {
+                    estadoPerdedor = true;
+                    timer = duration;
+                    showBtn();
+                    document.getElementById("mensaje-resultado").innerHTML = `Game OVER! Tiempo finalizado. La palabra es: ${palabraGanadora}`;
+                    bloqueoFieldsetGanarOPerder();
+                }
+            }, 1000);
+        }
+    
+    
+        function mostrarModal() {
+            // Ejecuto modal -----------------------------------------------------------
+            let modal = document.getElementById("modalPartidas");
+            let span = document.getElementById("close");
+    
+            // Lo hago visible
+            modal.style.display = "block";
+    
+            // Si clickea el "botón" de aceptar escondo el modal
+            span.onclick = function () {
+                modal.style.display = "none";
+            }
+    
+            // Si clickea fuera del modal, lo escondo
+            window.onclick = function (event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            }
+        }
     }
