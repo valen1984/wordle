@@ -328,9 +328,14 @@ function tabular(e) {
     }
 
 window.onload = function(){
-    //console.log(palabraGanadora.split(""))
     document.getElementById("timer").style.visibility="hidden";
     document.getElementById("grilla").style.visibility="hidden";
     document.getElementById("reset").style.visibility="none";
     obtenerPuntajes();
+
+    let inputsForm = document.getElementById("grilla").querySelectorAll("input");
+
+    inputsForm.forEach(function (x){
+        x.addEventListener("keyup", tabular);
+    })
     }
