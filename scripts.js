@@ -94,6 +94,8 @@ function GuardarProgreso(){
     save.respuestas = respuestas;
     save.usuario = document.getElementById("nombre-jugador-input").value;
     save.palabraGanadora = palabraGanadora;
+    save.colorTablero = colorTablero; // me va a pintar la matriz como estaba
+
 
     //Traigo del localStorage el array "saves", si no esta le asigno "[]"
     let savesArray = JSON.parse(localStorage.getItem("saves")) || [];
@@ -184,7 +186,7 @@ function obtenerPuntajes() { //Funcion para obtener puntajes. Ordena por fecha. 
     document.getElementById("puntajes").innerHTML = body;
 }
 
-function ordenalTablaPuntaje() { //Funcion para ordenar puntajes
+function orderscoreboard() { //Funcion para ordenar puntajes
 
     //Traigo del localStorage el array "puntajes", si no esta le asigno "[]"
     let puntajesArray = JSON.parse(localStorage.getItem('puntajes')) || [];
@@ -211,6 +213,26 @@ function ordenalTablaPuntaje() { //Funcion para ordenar puntajes
                     </tr>`
         }
     document.getElementById('puntajes').innerHTML = body;
+}
+
+function obtenerSaves() {
+
+    //Traigo del localStorage el array "saves", si no esta le asigno "[]"
+    let savesArray = JSON.parse(localStorage.getItem('saves')) || [];
+
+    //Muestro la lista de saves para el nombre ingresado
+    let body = "";
+    let partida = savesArray.length+1;
+    for (var i = savesArray.length-1; i >= 0; i--) { //Itero al revés para indexar correctamente
+        partida--;
+        body += `<tr class="fila-partidas-guardadas" onclick=loadGame('${i}') role="row">
+                    <td class="data-partida-guardadas" data-label="PARTIDA">${partida}</td>
+                    <td class="data-partida-guardadas" data-label="NOMBRE">${(savesArray[i].usuario)}</td>
+                    <td class="data-partida-guardadas" data-label="FECHA">${(savesArray[i].fecha)}</td>
+                </tr>`
+    }
+
+    document.getElementById("puntajes").innerHTML = body;
 }
 
 var regex = new RegExp ("[A-Z]");
@@ -413,6 +435,7 @@ function tabular(e) {
         const volverAJugar = document.getElementById("volver-a-jugar-partida");
         const gurdarPartida = document.getElementById("guardar-partida");
         const rankingPartida = document.getElementById("ranking-partida");
+        const cargarPartida = document.getElementById("cargar-partida");
     
         const form = document.getElementById("formulario-usuario");
         const name = document.getElementById("nombre-jugador-input");
@@ -522,6 +545,17 @@ function tabular(e) {
             }, 1000);
         }
     
+        cargarPartida.addEventListener("click", function(){
+            document.getElementById("nombre-jugador").style.display="none";
+            ordenPuntaje.style.display="none"
+            numeroPartida.style.display="table-cell"
+            obtenerSaves();
+            mostrarModal();
+    
+            ordenFecha.addEventListener("click", function(){
+                obtenerSaves();
+            })
+        })
     
         function mostrarModal() {
             // Ejecuto modal -----------------------------------------------------------
