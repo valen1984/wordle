@@ -83,7 +83,6 @@ var respuestas = [
     [],
 ]
 
-
 function GuardarProgreso(){
 
     //Declaro un array "save" y le guardo los datos necesarios para poder continuar jugando en otro momento
@@ -94,20 +93,43 @@ function GuardarProgreso(){
     save.respuestas = respuestas;
     save.usuario = document.getElementById("nombre-jugador-input").value;
     save.palabraGanadora = palabraGanadora;
-    save.colorTablero = colorTablero; // me va a pintar la matriz como estaba
-
+    save.colorTablero = colorTablero;
 
     //Traigo del localStorage el array "saves", si no esta le asigno "[]"
     let savesArray = JSON.parse(localStorage.getItem("saves")) || [];
     savesArray.push(save);
+
     //Convierto mi array de saves a json
     let savesArrayJSON = JSON.stringify(savesArray);
+
     //Guardo mi array de saves en formato JSON en el local storage
     localStorage.setItem("saves", savesArrayJSON);
 
     // console.log(savesArray)
-    window.location.href = "../index.html";
+    window.location.href = "index.html";
 }
+
+
+function ObtenerGuardadas() {
+
+    //Traigo del localStorage el array "saves", si no esta le asigno "[]"
+    let savesArray = JSON.parse(localStorage.getItem('saves')) || [];
+
+    //Muestro la lista de saves para el nombre ingresado
+    let body = "";
+    let partida = savesArray.length+1;
+    for (var i = savesArray.length-1; i >= 0; i--) { //Itero al revés para indexar correctamente
+        partida--;
+        body += `<tr class="fila-partidas-guardadas" onclick=loadGame('${i}') role="row">
+                    <td class="data-partida-guardadas" data-label="PARTIDA">${partida}</td>
+                    <td class="data-partida-guardadas" data-label="NOMBRE">${(savesArray[i].usuario)}</td>
+                    <td class="data-partida-guardadas" data-label="FECHA">${(savesArray[i].fecha)}</td>
+                </tr>`
+    }
+
+    document.getElementById("puntajes").innerHTML = body;
+}
+
 
 const loadGame = function(indice){
     gameOver = false;
@@ -156,7 +178,7 @@ const loadGame = function(indice){
     hideBtn();
     mensajeDeErrorValor();
 
-    //Realcular tiempo
+    //Calculo tiempo
     let sec = actualTiempo.slice(3);
     let min = actualTiempo.slice(0, 2);
     let secTransform = Math.round((sec/60) * 100);
@@ -166,7 +188,7 @@ const loadGame = function(indice){
     startTimer(timer, display);
 
 
-    //misma funcion pero al cargar partidas (con palabra actual)
+    //Misma funcion pero al cargar partidas (con palabra actual)
     function guardarRespuestaPartidaCargada(indice){
         for (let iCol = 0; iCol < 5; iCol++){
             let input = document.getElementById(`f${indice}c${iCol}`).value;
@@ -193,7 +215,7 @@ const loadGame = function(indice){
     arrayActualPalabra = actualPalabra.split("");
 
 
-    //Guarla la respuesta de la partida solo de las filas  guardadas
+    //Guardar la respuesta de la partida solo de las filas guardadas
     for (let indice = 0; indice < 6; indice++){
         let fieldset = document.getElementById(`fila${indice}`);
         let validarCaracter = document.querySelectorAll(`#fila${indice} input`);
@@ -296,12 +318,13 @@ const loadGame = function(indice){
     }
 }
 
+
 //Funcion para asignar score, se ejecuta cuando el jugador gana
 function scorePartidaGanada(fila){
 
     let puntajeTimer = document.querySelector("#time").innerHTML; //Traigo la fecha capturada para multiplicar por puntaje
     let puntuacionTimer = puntajeTimer.replace(":", ""); //Elimino simbolo :
-    let puntuacionTimerNumber = Number(puntuacionTimer) //Paso string a number
+    let puntuacionTimerNumber = Number(puntuacionTimer); //Paso string a number
 
     let puntaje = {};
 
@@ -348,15 +371,17 @@ function scorePartidaGanada(fila){
     //Traigo del localStorage el array "puntajes", si no esta le asigno "[]"
     let puntajesArray = JSON.parse(localStorage.getItem("puntajes")) || [];
     puntajesArray.push(puntaje);
+
     //Convierto mi array de puntajes a json
     let puntajeArrayJSON = JSON.stringify(puntajesArray);
+
     //Guardo mi array de puntajes en formato JSON en el local storage
-    localStorage.setItem("puntajes", puntajeArrayJSON)
+    localStorage.setItem("puntajes", puntajeArrayJSON);
 
 }
 
 
-function obtenerPuntajes() { //Funcion para obtener puntajes. Ordena por fecha. la ejecuto en "Ranking"
+function ObtenerScore() { //Funcion para obtener puntajes. Ordena por fecha. la ejecuto en "Ranking"
 
     //Traigo del localStorage el array "puntajes", si no esta le asigno "[]"
     let puntajesArray = JSON.parse(localStorage.getItem("puntajes")) || [];
@@ -373,7 +398,7 @@ function obtenerPuntajes() { //Funcion para obtener puntajes. Ordena por fecha. 
     document.getElementById("puntajes").innerHTML = body;
 }
 
-function orderscoreboard() { //Funcion para ordenar puntajes
+function ordenalTablaPuntaje() { //Funcion para ordenar puntajes
 
     //Traigo del localStorage el array "puntajes", si no esta le asigno "[]"
     let puntajesArray = JSON.parse(localStorage.getItem('puntajes')) || [];
@@ -383,14 +408,14 @@ function orderscoreboard() { //Funcion para ordenar puntajes
         if (a.puntaje > b.puntaje) {
             return 1;
           }
-          if (a.puntaje < b.puntaje) {
+        if (a.puntaje < b.puntaje) {
             return -1;
-          }
-          // a must be equal to b
-          return 0;
+        }
+        // a must be equal to b
+        return 0;
     });
 
-    //Muestro la lista de puntajes ordenado por puntaje del mas alto al mas bajo
+    //Ordeno el scoreboard por puntaje de mayor a menor
     let body = '';
     for (var i = 0; i < puntajesArray.length; i++) {
             body += `<tr role="row">
@@ -402,35 +427,13 @@ function orderscoreboard() { //Funcion para ordenar puntajes
     document.getElementById('puntajes').innerHTML = body;
 }
 
-function obtenerSaves() {
 
-    //Traigo del localStorage el array "saves", si no esta le asigno "[]"
-    let savesArray = JSON.parse(localStorage.getItem('saves')) || [];
-
-    //Muestro la lista de saves para el nombre ingresado
-    let body = "";
-    let partida = savesArray.length+1;
-    for (var i = savesArray.length-1; i >= 0; i--) { //Itero al revés para indexar correctamente
-        partida--;
-        body += `<tr class="fila-partidas-guardadas" onclick=loadGame('${i}') role="row">
-                    <td class="data-partida-guardadas" data-label="PARTIDA">${partida}</td>
-                    <td class="data-partida-guardadas" data-label="NOMBRE">${(savesArray[i].usuario)}</td>
-                    <td class="data-partida-guardadas" data-label="FECHA">${(savesArray[i].fecha)}</td>
-                </tr>`
-    }
-
-    document.getElementById("puntajes").innerHTML = body;
-}
-
-var regex = new RegExp ("[A-Z]");
-
-var estadoGanador = false;
-var estadoPerdedor = false;
+var gameOver = false;
 
 function bloqueoFieldsetGanarOPerder() {
     for (let indice = 0; indice < 6; indice++){
         let fieldset = document.getElementById(`fila${indice}`);
-        if (estadoGanador || estadoPerdedor);
+        if (gameOver);
         fieldset.disabled=true;
     }
 }
@@ -458,12 +461,14 @@ function eliminarMensajeDeError() {
     errorCampoValor.style.visibility = "hidden";
 }
 
+
 function inicio () {
     for (let indice = 0; indice < 6; indice++){
         let fieldset = document.getElementById(`fila${indice}`);
         fieldset.onkeydown = function (event){
             if(event.key === `Enter`){
                 let validarCaracter = document.querySelectorAll(`#fila${indice} input`);
+                var regex = new RegExp ("[A-Z]");
                 let valor0 = validarCaracter[0].value;
                 let valor1 = validarCaracter[1].value;
                 let valor2 = validarCaracter[2].value;
@@ -494,7 +499,7 @@ function inicio () {
                     let respuestaUsuarioString = respuestaUsuario.join("");
 
                     if (respuestaUsuarioString == palabraGanadora){
-                        estadoGanador = true;
+                        gameOver = true;
                         showBtn();
                         document.getElementById("mensaje-resultado").style.color = "rgb(21, 211, 21)";
                         document.getElementById("mensaje-resultado").innerHTML = "--- GANASTE!! --- ";
@@ -528,7 +533,7 @@ function inicio () {
                         document.getElementById("f5c0").focus();
                     }
                     if (indice == 5  && respuestaUsuarioString != palabraGanadora){
-                        estadoPerdedor = true;
+                        gameOver = true;
                         showBtn();
                         document.getElementById("mensaje-resultado").innerHTML = `Game OVER! No quedan mas intentos. La palabra es: "${palabraGanadora}"`;
                         bloqueoFieldsetGanarOPerder();
@@ -538,6 +543,7 @@ function inicio () {
         }
     }
 }
+
 
 function guardarRespuesta(indice){
     for (let iCol = 0; iCol < 5; iCol++){
@@ -564,11 +570,11 @@ function revisarResultado(respuesta, indice){
 
 // Funcion para generar palabras randon
 
-const palabrasDisponibles = ["MATES", "PASTO", "TOSER"/*, "PISAR", "MARCO", "DARDO", "FREIR", "TRUCO", "POSTE", "CENAR",
+const palabrasDisponibles = ["MATES", "PASTO", "TOSER", "PISAR", "MARCO", "DARDO", "FREIR", "TRUCO", "POSTE", "CENAR",
                              "AGUJA", "AUDIO", "CUEVA", "DOMAR", "GRAVE", "FUMAR", "FRITO", "FURIA", "GANAR", "GASTO",
                              "PERRO", "PISTA", "ARROZ", "ARENA", "MIRAR", "SALTO", "CORTE", "MAREO", "MULTA", "MICRO",
                              "RISAS", "NUBES", "NOTAR", "PLOMO", "PULPA", "PESAR", "PARAR", "PORRA", "TECHO", "TITAN",
-"BRISA", "ACERO", "BIRRA", "BARRA", "MARZO", "ABRIL", "JUNIO", "JULIO", "ENERO", "ASADO"*/]
+                             "BRISA", "ACERO", "BIRRA", "BARRA", "MARZO", "ABRIL", "JUNIO", "JULIO", "ENERO", "ASADO"]
 
 function elegirPalabraAlAzar(palabrasDisponibles) {
     return palabrasDisponibles[Math.floor(Math.random() * palabrasDisponibles.length)]
@@ -614,6 +620,47 @@ function tabular(e) {
     return false;
     }
 }
+
+
+function timer() {
+    var fiveMinutes = 60 * 5,
+    display = document.querySelector("#time");
+    startTimer(fiveMinutes, display);
+}
+
+function startTimer(duration, display) {
+    var timer = duration, minutes, seconds;
+    var reloj = setInterval(function () {
+        minutes = parseInt(timer / 60, 10);
+        seconds = parseInt(timer % 60, 10);
+
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        display.textContent = minutes + ":" + seconds;
+
+        if (gameOver){
+            clearInterval(reloj);
+        }
+
+        if (timer < 60 * 3){
+            document.getElementById("time").style.color="rgb(226, 226, 85)";
+        }
+
+        if (timer < 60){
+            document.getElementById("time").style.color="rgb(226, 38, 38)";
+        }
+
+        if (--timer < 0) {
+            gameOver = true;
+            timer = duration;
+            showBtn();
+            document.getElementById("mensaje-resultado").innerHTML = `Game OVER! Tiempo finalizado. La palabra es: ${palabraGanadora}`;
+            bloqueoFieldsetGanarOPerder();
+        }
+    }, 1000);
+}
+
 
 window.onload = function(){
     console.log(palabraGanadora)
@@ -672,17 +719,17 @@ window.onload = function(){
     })
 
     gurdarPartida.addEventListener("click", function(){
-        saveProgress();
+        GuardarProgreso();
     })
 
     rankingPartida.addEventListener("click", function(){
         ordenPuntaje.style.display="table-cell"
         numeroPartida.style.display="none"
-        obtenerPuntajes();
+        ObtenerScore();
         mostrarModal();
 
         ordenFecha.addEventListener("click", function(){
-            obtenerPuntajes();
+            ObtenerScore();
         })
 
         ordenPuntaje.addEventListener("click", function(){
@@ -694,11 +741,11 @@ window.onload = function(){
         document.getElementById("nombre-jugador").style.display="none";
         ordenPuntaje.style.display="none"
         numeroPartida.style.display="table-cell"
-        obtenerSaves();
+        ObtenerGuardadas();
         mostrarModal();
 
         ordenFecha.addEventListener("click", function(){
-            obtenerSaves();
+            ObtenerGuardadas();
         })
     })
 
