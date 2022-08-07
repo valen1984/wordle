@@ -1,7 +1,7 @@
 * {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: sans-serif;
     color: rgb(34, 34, 34);
-    background-color: #181818;
+    background-color: #f1f1f1;
 }
 
 body {
@@ -22,25 +22,25 @@ header {
 }
 
 .header {
-    color: #f1f1f1;
+    color: #181818;
     text-align: center;
     padding-bottom: 10px;
 }
 
 .header :link {
-    color: #f1f1f1;
+    color: #181818;
     text-decoration: none;
 }
 
 .header :visited {
     text-decoration: none;
-    color: #f1f1f1;
+    color: #181818;
 }
 
 .button-nav {
     background-color: #f1f1f1;
-    min-width: 105px;
-    border-radius: 4px;
+    min-width: 80px;
+    border-radius: 240px;
     font-weight: bold;
     padding: 5px;
     margin: 5px;
@@ -48,7 +48,7 @@ header {
 }
 
 .button-nav :link {
-    background-color: #f1f1f1;
+    background-color: #181818;
     text-decoration: none;
 }
 
@@ -59,13 +59,11 @@ header {
 
 .button-nav:hover {
     text-decoration: none;
-    color: rgb(226, 38, 38);
 }
 
 .button-nav :visited:hover {
     background-color: #f1f1f1;
     text-decoration: none;
-    color: rgb(226, 38, 38);
 }
 
 #buttons {
@@ -83,7 +81,7 @@ header {
     min-height: 15px;
     padding-bottom: 10px;
     font-size: 25px;
-    color: #f1f1f1
+    color: #181818
 }
 
 #mensaje-error {
@@ -93,11 +91,7 @@ header {
     text-align: center;
     font-size: 20px;
     padding-bottom: 8px;
-    color: #f1f1f1
-}
-
-#time {
-    color: rgb(21, 211, 21);
+    color: #181818
 }
 
 main {
@@ -105,8 +99,6 @@ main {
     justify-content: center;
     width: 375px;
     padding: 20px 0px;
-    border-top: 2px solid #353434;
-    border-bottom: 2px solid #353434;
 }
 
 .fieldset-wordle {
@@ -116,28 +108,23 @@ main {
 }
 
 .input-wordle {
-    background-color: #f1f1f1;
-    width: 50px;
-    margin: 3px;
+    background-color: white;
+    width: 60px;
+    margin: 5px;
     text-align: center;
-    line-height: 40px;
+    line-height: 60px;
     font-size: 40px;
     border: 2px solid rgba(0, 0, 0, 0.514);
-    border-radius: 5px;
-    box-shadow: 1x 2px 10px #353434;
+    border-radius: 215px;
+    box-shadow: 2px 2px 10px #353434;
     caret-color: transparent;
 }
 
 .input-wordle:focus {
     outline: none;
-    border: 2px solid rgb(226, 38, 38);
+    border: 2px solid rgb(79, 38, 226);
     box-shadow: 0px 0px 0px;
-
 }
-
-input:disabled {
-    border: 2px solid rgba(255, 255, 255, 0.900);
-  }
 
 #guardar-partida {
     display:none;
@@ -162,13 +149,13 @@ input:disabled {
 }
 
 #nombre-jugador-label {
-    color: #f1f1f1;
+    color: #181818;
     padding-bottom: 5px;
 }
 
 #nombre-jugador-input {
-   background-color:  #353434;
-   color: #f1f1f1;
+   background-color:  #f1f1f1;
+   color: #181818;
    margin-bottom: 5px;
 }
 
@@ -191,7 +178,7 @@ footer {
 footer a {
     padding-top: 20px;
     text-decoration: none;
-    color: #fff;
+    color: #181818;
 }
 
 /*Modal fondo*/
@@ -235,7 +222,7 @@ footer a {
 
 th, td {
     padding: 5px;
-    color:white;
+    color:181818;
 }
 
 #orden-por-fecha {
@@ -261,24 +248,24 @@ th, td {
 }
 
 .modal_content {
-    width: 400px;
+    width: 600px;
     display: flex;
     flex-direction: column;
     justify-content: start;
     text-align: center;
-    background-color: #121213;
+    background-color: #f1f1f1;
     border: 2px solid #3a3a3c;
     margin: 15% auto;
 }
 
 .modal_message {
-    width: 400px;
+    width: 600px;
     height: 50px;
     display: flex;
     justify-content: center;
     align-items: center;
     border-bottom: 2px solid #3a3a3c;
-    color: #fff;
+    color: #181818;
     font-size: 18px;
 }
 
@@ -293,7 +280,7 @@ th, td {
     text-transform: uppercase;
     letter-spacing: 2.5px;
     font-weight: bold;
-    color: #fff;
+    color: #181818;
     background-color: #bbb7b7;
     border: 2px solid #3a3a3c;
     border-radius: 4px;
@@ -305,13 +292,9 @@ th, td {
 .modal_close:hover {
     color: #000;
     background-color: #3a3a3c;
-    border: 3px solid #121213;
+    border: 2px solid #f1f1f1;
 }
 
-.modal_close:active {
-    background-color: #bbb7b7;
-    border: 3px solid #121213;
-}
 
 /*Colores tablero*/
 .verde {

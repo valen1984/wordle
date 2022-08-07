@@ -11,20 +11,19 @@
 </head>
 <body>
     <header>
-        <h1 class="header">EXAMEN FINAL LPPA</h1>
+        <h1 class="header">
+            <a class="header" href="index.html">Wordle</a>
+        </h1>
         <h2 class="header">
-            <a class="header" href="index.html">WORDLE</a>
-        </h2>
-        <h6 class="header">
         <a href="https://github.com/valen1984/wordle" target="_blank">Ir a github Valentín Alvarez</a>
-        </h6>
+        </h2>
         <div id="buttons">
-            <button id="nueva-partida" class="button-nav">Nueva Partida</button>
-            <button id="cargar-partida" class="button-nav">Cargar Partida</button>
-            <button id="guardar-partida" class="button-nav">Guardar Partida</button>
+            <button id="nueva-partida" class="button-nav">Jugar</button>
+            <button id="cargar-partida" class="button-nav">Cargar</button>
+            <button id="guardar-partida" class="button-nav">Guardar</button>
             <button id="volver-a-jugar-partida" class="button-nav">Volver a Jugar</button>
             <button id="ranking-partida" class="button-nav">Ranking</button>
-            <button id="contactanos" class="button-nav"><a href="contacto.html">Contactanos</a></button>
+            <button id="contactanos" class="button-nav"><a href="contacto.html">Contacto</a></button>
         </div>
         <form name="formulario" id="formulario-usuario">
             <div id="nombre-jugador">
@@ -34,7 +33,7 @@
             </div>
         </form>
 
-        <div id="timer">Tenés <span id="time">05:00</span> minutos para resolver la palabra!</div>
+        <div id="timer">Tenés <span id="time">03:00</span> minutos para resolver la palabra!</div>
         <div id="mensaje-resultado"></div>
         <div id="mensaje-error">Introduzca solo letras mayusculas</div>
     </header>
@@ -96,7 +95,7 @@
                             <th id="numero-partida">PARTIDA</th>
                             <th>NOMBRE</th>
                             <th id="orden-por-fecha">FECHA</th>
-                            <th id="orden-por-puntaje">PUNTAJE ↓</th>
+                            <th id="orden-por-puntaje">PUNTAJE</th>
                         </tr>
                     </thead>
                     <tbody id="puntajes">

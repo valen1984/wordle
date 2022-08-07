@@ -16,7 +16,7 @@
 label, textarea, input {
     margin: 3px;
     padding: 5px;
-    color: #f1f1f1;
+    color: #181818;
     font-size: 14px;
 }
 
@@ -25,7 +25,7 @@ label {
 }
 
 input, textarea {
-    background-color: #353434;
+    background-color:  #f1f1f1
 }
 
 #submit {

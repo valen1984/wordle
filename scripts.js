@@ -1,6 +1,6 @@
 //window.fila = 0
 
-// Testeo funcionalidad estableciendo una variable para el nombre en un alert y guardo en LS una key 'nombre'. 
+// Testeo funcionalidad estableciendo una variable para el nombre en un alert y guardo en LS una key 'nombre'.
 // Ejecuto el juego, timer y escondo el boton de nueva partida.
 /* function user() {
     let player = {
@@ -117,8 +117,8 @@ function ObtenerGuardadas() {
 
     //Muestro la lista de saves para el nombre ingresado
     let body = "";
-    let partida = savesArray.length+1;
-    for (var i = savesArray.length-1; i >= 0; i--) { //Itero al revés para indexar correctamente
+    let partida = savesArray.length +1;
+    for (var i = savesArray.length -1; i >= 0; i--) { //Itero al revés para indexar correctamente
         partida--;
         body += `<tr class="fila-partidas-guardadas" onclick=loadGame('${i}') role="row">
                     <td class="data-partida-guardadas" data-label="PARTIDA">${partida}</td>
@@ -126,7 +126,7 @@ function ObtenerGuardadas() {
                     <td class="data-partida-guardadas" data-label="FECHA">${(savesArray[i].fecha)}</td>
                 </tr>`
     }
-
+    console.log(savesArray.length)
     document.getElementById("puntajes").innerHTML = body;
 }
 
@@ -276,7 +276,7 @@ const loadGame = function(indice){
                     gameOver = true;
                     showBtn();
                     document.getElementById("mensaje-resultado").style.color = "rgb(21, 211, 21)";
-                    document.getElementById("mensaje-resultado").innerHTML = "--- GANASTE!! --- ";
+                    document.getElementById("mensaje-resultado").innerHTML = "Felicitaciones Ganaste!";
                     scorePartidaGanada(indice); // Guardamos los datos de la partida con el score
                     bloqueoFieldsetGanarOPerder();
                 }
@@ -322,10 +322,6 @@ const loadGame = function(indice){
 //Funcion para asignar score, se ejecuta cuando el jugador gana
 function scorePartidaGanada(fila){
 
-    let puntajeTimer = document.querySelector("#time").innerHTML; //Traigo la fecha capturada para multiplicar por puntaje
-    let puntuacionTimer = puntajeTimer.replace(":", ""); //Elimino simbolo :
-    let puntuacionTimerNumber = Number(puntuacionTimer); //Paso string a number
-
     let puntaje = {};
 
     puntaje.fecha = new Date().toLocaleString("es-AR", { timeZone:"America/Argentina/Buenos_Aires"});
@@ -335,33 +331,27 @@ function scorePartidaGanada(fila){
     switch (fila) {
 
         case 0:
-            calculoPuntaje0 = 2 * puntuacionTimerNumber
-            puntaje.puntaje = Math.round(calculoPuntaje0) //Redondeamos puntaje
+            puntaje.puntaje = 1500
             break;
 
         case 1:
-            calculoPuntaje1 = 1.5 * puntuacionTimerNumber
-            puntaje.puntaje = Math.round(calculoPuntaje1)
+            puntaje.puntaje = 1000
             break;
 
         case 2:
-            calculoPuntaje2 = 1.2 * puntuacionTimerNumber
-            puntaje.puntaje = Math.round(calculoPuntaje2)
+            puntaje.puntaje = 800
             break;
 
         case 3:
-            calculoPuntaje3 = 1 * puntuacionTimerNumber
-            puntaje.puntaje = Math.round(calculoPuntaje3)
+            puntaje.puntaje = 600
             break;
 
         case 4:
-            calculoPuntaje4 = 0.8 * puntuacionTimerNumber
-            puntaje.puntaje = Math.round(calculoPuntaje4)
+            puntaje.puntaje = 400
             break;
 
         case 5:
-            calculoPuntaje5 = 0.5 * puntuacionTimerNumber
-            puntaje.puntaje = Math.round(calculoPuntaje5)
+            puntaje.puntaje = 200
             break;
 
         default:
@@ -584,6 +574,7 @@ var palabraGanadora = elegirPalabraAlAzar(palabrasDisponibles);
 
 var arrayPalabraGanadora = palabraGanadora.split("");
 
+
 // Nueva partida, esconder botones
 function hideBtn() {
     document.getElementById("nueva-partida").style.display="none";
@@ -623,7 +614,7 @@ function tabular(e) {
 
 
 function timer() {
-    var fiveMinutes = 60 * 5,
+    var fiveMinutes = 60 * 3,
     display = document.querySelector("#time");
     startTimer(fiveMinutes, display);
 }
@@ -643,19 +634,11 @@ function startTimer(duration, display) {
             clearInterval(reloj);
         }
 
-        if (timer < 60 * 3){
-            document.getElementById("time").style.color="rgb(226, 226, 85)";
-        }
-
-        if (timer < 60){
-            document.getElementById("time").style.color="rgb(226, 38, 38)";
-        }
-
         if (--timer < 0) {
             gameOver = true;
             timer = duration;
             showBtn();
-            document.getElementById("mensaje-resultado").innerHTML = `Game OVER! Tiempo finalizado. La palabra es: ${palabraGanadora}`;
+            document.getElementById("mensaje-resultado").innerHTML = `Perdiste`;
             bloqueoFieldsetGanarOPerder();
         }
     }, 1000);
