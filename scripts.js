@@ -1,38 +1,4 @@
-//window.fila = 0
-
-// Testeo funcionalidad estableciendo una variable para el nombre en un alert y guardo en LS una key 'nombre'.
-// Ejecuto el juego, timer y escondo el boton de nueva partida.
-/* function user() {
-    let player = {
-      name: null
-    }
-
-    // here we assign the result of the prompt to name attribute of player object
-    player.name = prompt("Ingresá tu nombre para jugar:"); // Lo voy a usar para guardar el nombre en el tablero
-    // honestly I don't know what empty prompt returns so I would fall back to rejecting all falsey values
-    //localStorage.setItem('nombre', player.name);
-    //obtenerSaves(player.value);
-    if (!player.name) {
-        alert("El juego fue cancelado");
-        return;
-    } else {
-        // Alert is definitely a better choice here as the player doesn't input any information
-        alert("Perfecto, vamos a jugar " + player.name + "!");
-        localStorage.setItem('nombre', player.name, JSON.stringify(puntajes));
-        inicio (); timer(true); hideBtn();
-    }
-}
-*/
-
-// Movi la funcion al window.onload
-/*function hideBtn() {
-    document.getElementById("nueva-partida").style.visibility="hidden";
-    document.getElementById("timer").style.visibility="visible";
-    document.getElementById("grilla").style.visibility="visible";
-    }
-*/
-
-//matriz colores del tablero
+//matriz colores del tablero 5 cols x 6 rows en 0, es decir en blanco.
 
 var colorTablero = [
     [0, 0, 0, 0, 0],
@@ -43,7 +9,7 @@ var colorTablero = [
     [0, 0, 0, 0, 0]
 ]
 
-// necesitamos variable colores:
+// Necesitamos variables de los colores:
 
 var colores = {
     VERDE: 1,
@@ -73,7 +39,7 @@ function pintarTablero(){
         }
     }
 }
-
+//Array vacio [], nuevo array (), objeto vacio {} 
 var respuestas = [
     [],
     [],
@@ -85,7 +51,7 @@ var respuestas = [
 
 function GuardarProgreso(){
 
-    //Declaro un array "save" y le guardo los datos necesarios para poder continuar jugando en otro momento
+    //Declaro un objeto "save" y le guardo los datos necesarios para poder continuar jugando en otro momento
     let save = {};
 
     save.fecha = new Date().toLocaleString("es-AR", {timeZone:"America/Argentina/Buenos_Aires"});
@@ -558,7 +524,8 @@ function revisarResultado(respuesta, indice){
     pintarTablero();
 }
 
-// Funcion para generar palabras randon
+// Funcion para generar palabras random
+// Const variables must be assigned a value when they are declared: Meaning: An arrays declared with const must be initialized when it is declared.
 
 const palabrasDisponibles = ["MATES", "PASTO", "TOSER", "PISAR", "MARCO", "DARDO", "FREIR", "TRUCO", "POSTE", "CENAR",
                              "AGUJA", "AUDIO", "CUEVA", "DOMAR", "GRAVE", "FUMAR", "FRITO", "FURIA", "GANAR", "GASTO",
