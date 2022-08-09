@@ -581,9 +581,9 @@ function tabular(e) {
 
 
 function timer() {
-    var fiveMinutes = 60 * 3,
+    var threeMinutes = 60 * 3,
     display = document.querySelector("#time");
-    startTimer(fiveMinutes, display);
+    startTimer(threeMinutes, display);
 }
 
 function startTimer(duration, display) {
