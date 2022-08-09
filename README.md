@@ -1,5 +1,6 @@
 Juego a desarrollar
 https://wordle.danielfrg.com/
+Link al juego - Valentin Alvarez - https://valen1984.github.io/wordle/
 
 1. Crear una nueva matriz llamada “colores” que tenga la misma dimensión del tablero del juego, en donde en cada posición se deberá guardar un valor numérico de 0 a 3. Luego se debera crear una funcion “pintarTablero” que recorrar dicha matriz y dependiendo del valor guardado en cada posicion de la matriz, pinte de verde, amarillo o gris cada input HTML del tablero, correspondiente a la posicion de la matriz.  
 
