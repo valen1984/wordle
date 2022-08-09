@@ -17,7 +17,9 @@ var colores = {
     GRIS: 3,
     BLANCO: 0
 }
-
+// SWITCH La declaración switch evalúa una expresión comparando el valor de esa expresión con una instancia case.
+// CASE Declaraciones ejecutadas cuando el resultado de expresión coincide con cada valor case.
+// FOR Crea un bucle que consiste en tres expresiones opcionales, encerradas en paréntesis y separadas por puntos y comas, seguidas de una sentencia ejecutada en un bucle.
 function pintarTablero(){
     for (let iFila = 0; iFila < 6; iFila++) {
         for (let iCol=0; iCol<5; iCol++){
@@ -163,6 +165,7 @@ const loadGame = function(indice){
         revisarResultadoPartidaCargada(respuestas[indice], indice);
     }
 
+    // Lo que me dijo Esteban en el segundo parcial: == in JavaScript is used for comparing two variables, but it ignores the datatype of variable. === is used for comparing two variables, but this operator also checks datatype and compares two values. 
     function revisarResultadoPartidaCargada(respuesta, indice){
         respuesta.forEach(function(elemento, index){
             if(elemento === arrayActualPalabra[index]){
@@ -178,6 +181,7 @@ const loadGame = function(indice){
         pintarTablero();
     }
 
+    // El método split() divide un objeto de tipo String en un array (vector) de cadenas mediante la separación de la cadena en subcadenas.
     arrayActualPalabra = actualPalabra.split("");
 
 
@@ -539,6 +543,7 @@ function elegirPalabraAlAzar(palabrasDisponibles) {
 
 var palabraGanadora = elegirPalabraAlAzar(palabrasDisponibles);
 
+// El método split() divide un objeto de tipo String en un array (vector) de cadenas mediante la separación de la cadena en subcadenas.
 var arrayPalabraGanadora = palabraGanadora.split("");
 
 
@@ -636,9 +641,11 @@ window.onload = function(){
     const ordenPuntaje = document.getElementById("orden-por-puntaje");
     const numeroPartida = document.getElementById("numero-partida");
 
+    //El método addEventlistener, es un "escuchador" que indica al navegador que este atento a la interacción del usuario.
     form.addEventListener("submit", function(e){
         e.preventDefault();
 
+        //Las expresiones regulares son patrones que se utilizan para hacer coincidir combinaciones de caracteres en cadenas. En JavaScript, las expresiones regulares también son objetos.
         var regexName = new RegExp ("^[A-Za-z]+$");
         let nameValue = name.value;
         let regexValue = regexName.test(nameValue);
