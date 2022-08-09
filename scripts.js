@@ -591,6 +591,8 @@ function timer() {
     startTimer(threeMinutes, display);
 }
 
+// SETINTERVAL es un metodo que llama a una función o ejecuta un fragmento de código de forma reiterada, con un retardo de tiempo fijo entre cada llamada.
+// Este método devuelve un ID de intervalo que lo identifica de forma única, de ese modo, el intervalo puede ser eliminado más tarde llamando a clearInterval() .
 function startTimer(duration, display) {
     var timer = duration, minutes, seconds;
     var reloj = setInterval(function () {
