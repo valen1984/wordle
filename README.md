@@ -2,15 +2,19 @@ Juego a desarrollar
 https://wordle.danielfrg.com/
 Link al juego - Valentin Alvarez - https://valen1984.github.io/wordle/
 
-1. Crear una nueva matriz llamada “colores” que tenga la misma dimensión del tablero del juego, en donde en cada posición se deberá guardar un valor numérico de 0 a 3. Luego se debera crear una funcion “pintarTablero” que recorrar dicha matriz y dependiendo del valor guardado en cada posicion de la matriz, pinte de verde, amarillo o gris cada input HTML del tablero, correspondiente a la posicion de la matriz.  
-
-- El valor 0 representa el color blanco.
-- El valor 1 representa el color verde.
-- El color 2 representa el color amarillo.
-El color 3 representa el color gris.
-
-2. Crear una nueva matriz llamada “letras” que tenga la misma dimensión del tablero del juego, en donde en cada posición se debe guardar una letra o un string vacío. Luego se deberá crear una función llamada “inicio” que recorra dicha matriz y le asigne una función al evento onInput de input HTML del tablero, correspondiente a la posición de la matriz. La función debe obtener el valor del input y guardarlo en la matriz “letras” respetando la posición del input en el tablero.
-
-3. Actualizar la función creada en el punto anterior para obtener cada “fila” del tablero representada con el elemento FieldSet para agregar una función en el evento onkeydown que muestra un console.log cuando se presiona la tecla “enter”.
-
-4. Crear una función llamada “validarLetra” que se ejecute cuando se presiona la tecla “enter” cuando una fila del tablero (FieldSet) tenga foco. Esta función debe obtener la letra ingresada en la fila del tablero y chequear si la palabra ingresada es la ganadora o tiene alguna letra en común. Como resultado esta función debe actualizar la matriz de colores creada en el punto 1, y luego debe ejecutar la función “pintarTablero” para mostrar el resultado en pantalla.
+Agregar funcionalidad de guardar y cargar partida en el juego usando LocalStorage. El jugadorpuede guardar el progreso de una a más partidas, haciendo click en un botón que diga “guardarpartida”, guardando la palabra ganadora elegida y el progreso realizado por el usuario hasta elmomento de guardar la partida en LocalStorage. Las partidas guardadas se deben mostrar en unalista y se deben poder cargar para continuar jugando.
+● Detectar el momento en que un jugador ha ganado la partida y mostrar un cartel informativo.
+● Detectar el momento en que un jugador ha perdido la partida y mostrar un cartel informativo.
+● Crear una página de Contacto, con un formulario que permita ingresar nombre, mail y mensaje, y alenviar se abra la herramienta de envío de emails predeterminada del sistema operativo.
+● Validaciones del formulario de contacto (nombre requerido alfanumérico, mail requerido válido ymensaje con más de 5 caracteres).
+Deseables:
+● Guardar el resultado de las partidas ganadas, nombre del jugador, fecha de partida y el puntajeobtenido.
+● Agregar un botón para mostrar un popup con la lista de partidas con jugadores, puntajes y fechas.
+● Agregar la opción de ordenar la lista de partidas por fecha o puntaje.
+● Agregar un link a la página de Github donde se alojó el código del juego, que al apretarlo se abre enuna nueva pestaña.
+IMPORTANTE
+● Los puntos requeridos son obligatorios para aprobar.
+● Los puntos deseables son opcionales y se suman a la nota.
+● Si los puntos requeridos y deseables se desarrollan correctamente, la nota es un 10.
+FORMATO DE ENTREGA
+El desarrollo se debe subir a un repositorio de Github en la cuenta del alumno. Debe contar con un readmeprolijo y detallado, dando información sobre la aplicación desarrollada, tecnologías usadas, problemáticaresuelta, link a Github Pages, etc. Debe contar al menos con 5 commits, todos realizados por el dueño delrepositorio (alumno). El repositorio debe tener configurado Github Pages para poder ingresar a laaplicación desarrollada.El desarrollo debe ser INDIVIDUAL, cualquier indicio que ponga en duda la autenticidad del códigodesarrollado por el alumno, será motivo necesario para desaprobar el final.
